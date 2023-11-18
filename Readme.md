@@ -23,6 +23,7 @@ TOOLS USED:
  echo "ENTER YOUR PROJECT_ID"
  read PROJECT_ID
  gcloud config set project $PROJECT_ID
+ sed -i "s/GOOGLE_CLOUD_PROJECT_ID/${PROJECT_ID}" .github/workflows/gcp_deploy.yaml
  gcloud  services enable container.googleapis.com compute.googleapis.com \
  clouddeploy.googleapis.com cloudbuild.googleapis.com artifactregistry.googleapis.com 
  ```
@@ -98,3 +99,10 @@ gcloud iam workload-identity-pools providers create-oidc  github --location glob
 export PROJECT_NUMBER=$(gcloud projects describe $PROJECT_ID --format "value(projectNumber)")
 gcloud iam service-accounts add-iam-policy-binding  github-sa@$PROJECT_ID.iam.gserviceaccount.com  --member "principalSet://iam.googleapis.com/projects/${PROJECT_NUMBER}/locations/global/workloadIdentityPools/github-pool/attribute.workflow/gcp-deploy" --role roles/iam.workloadIdentityUser
 ```
+8)CREATING THE GOOGLE ARTIFACT REGISTRY IN ASIA 
+```bash
+gcloud artifacts repositories create repo-github \
+--repository-format docker \
+--region asia-south2 \
+--labels type=github-images
+ ```
