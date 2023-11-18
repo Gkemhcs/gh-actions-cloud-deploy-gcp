@@ -17,10 +17,14 @@ TOOLS USED:
        AND THEN CREATE  CLOUD-DEPLOY RELEASES TO  INITIATE CONTINOUS DELIVERY
        PROCESS 
 ### STEPS TO DEPLOY THE PROJECT:-
-     FIRST ENABLE THE REQUIRED APIS 
+ FIRST ENABLE THE REQUIRED APIS 
     
  ```bash 
  gcloud  services enable container.googleapis.com compute.googleapis.com \
  clouddeploy.googleapis.com cloudbuild.googleapis.com artifactregistry.googleapis.com 
  ```
- 
+ REPLACE THE PROJECT ID BELOW WITH THE ID OF YOUR GOOGLE CLOUD PROJECT
+ ```bash
+ export PROJECT_ID="REPLACE_WITH_YOUR_GOOGLE_CLOUD_PROJECT_ID"
+ ```
+
