@@ -41,9 +41,7 @@ jobs:
       
       - name:  apply image tag to deployment file also to start cd
         run: |
-            pwd
-            cd ..
-            pwd
+  
             ls 
             ls k8s-files
             sed -i "s/flask-app.*$/flask-app:${{github.sha}}/" k8s-files/deployment.yaml
