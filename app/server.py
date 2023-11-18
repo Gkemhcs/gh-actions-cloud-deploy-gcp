@@ -10,6 +10,6 @@ def version():
           return "I AM RUNNING VERSION V2"
 @app.route("/health")
 def health_check():
-        return "i am healthy"
+        return "healthy"
 if(__name__=="__main__"):
      app.run(port=8080,host="0.0.0.0")
