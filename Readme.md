@@ -20,6 +20,7 @@ TOOLS USED:
 1)FIRST ENABLE THE REQUIRED APIS 
     
  ```bash 
+ gcloud config set project $PROJECT_ID
  gcloud  services enable container.googleapis.com compute.googleapis.com \
  clouddeploy.googleapis.com cloudbuild.googleapis.com artifactregistry.googleapis.com 
  ```
@@ -79,4 +80,14 @@ gcloud iam service-accounts add-iam-policy-binding deploy-runner@$PROJECT_ID.iam
 --role roles/iam.serviceAccountUser
 
 ```
- 
+6)CREATING THE CLOUD DEPLOY DELIVERY PIPELINE TO ENABLE THE CONTINOUS DELIVERY FOR GKE DEPLOYMENTS
+```bash
+# move to cloud-deploy directory 
+cd cloud-deploy 
+sed -i "s/PROJECT_ID/${PROJECT_ID}/g" delivery-pipeline.yaml
+gcloud deploy apply --file delivery-pipeline.yaml
+```
+7)CREATING THE WORKLOAD IDENTITY POOL AND ADDING GITHUB PROVIDER TO THE POOL FOR AUTHENTICATING,AUTHORIZING THE GITHUB WORKFLOWS
+```bash
+gcloud iam workload-identity-pools create github-pool  --location global --display-name  GITHUB-POOL
+```
