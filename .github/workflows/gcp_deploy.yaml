@@ -5,7 +5,7 @@ on:
       paths: 
       - "app/**"
 env:
-  PROJECT_ID: "GOOGLE_CLOUD_PROJECT_ID"
+  PROJECT_ID: "cobalt-infinity-405312"
   GAR_LOCATION: "asia-south2"
   REGISTRY_NAME: "repo-github"
 jobs:
