@@ -23,6 +23,7 @@ TOOLS USED:
  echo "ENTER YOUR PROJECT_ID"
  read PROJECT_ID
  gcloud config set project $PROJECT_ID
+ sed -i "s/GOOGLE_CLOUD_PROJECT_ID/${PROJECT_ID}" .github/workflows/gcp_deploy.yaml
  gcloud  services enable container.googleapis.com compute.googleapis.com \
  clouddeploy.googleapis.com cloudbuild.googleapis.com artifactregistry.googleapis.com 
  ```
@@ -85,16 +86,32 @@ gcloud iam service-accounts add-iam-policy-binding deploy-runner@$PROJECT_ID.iam
 # move to cloud-deploy directory 
 cd cloud-deploy 
 sed -i "s/PROJECT_ID/${PROJECT_ID}/g" delivery-pipeline.yaml
-gcloud deploy apply --file delivery-pipeline.yaml
+gcloud deploy apply --file delivery-pipeline.yaml \
+--region asia-south2
 ```
-7)CREATING THE WORKLOAD IDENTITY POOL AND ADDING GITHUB PROVIDER TO THE POOL FOR AUTHENTICATING,AUTHORIZING THE GITHUB WORKFLOWS
+7) ENTER YOUR  GITHUB REPO USERNAME AND GITHUB REPOSITORY
 ```bash
+echo "ENTER YOUR GITHUB USERNAME"
+read GITHUB_USER
+echo "ENTER YOUR GITHUB REPOSITORY CREATED FOR THIS PROJECT"
+read GITHUB_REPOSITORY
+```
+8)CREATING THE WORKLOAD IDENTITY POOL AND ADDING GITHUB PROVIDER TO THE POOL FOR AUTHENTICATING,AUTHORIZING THE GITHUB WORKFLOWS
+```bash
+
 gcloud iam workload-identity-pools create github-pool  --location global --display-name  GITHUB-POOL
 gcloud iam workload-identity-pools providers create-oidc  github --location global\
 --workload-identity-pool=github-pool --display-name GITHUB_PROVIDER \
  --issuer-uri="https://token.actions.githubusercontent.com"  \
  --attribute-mapping="google.subject=assertion.sub,attribute.workflow=assertion.workflow,attribute.actor=assertion.actor,attribute.repository=assertion.repository" \
-  --attribute-condition="assertion.repository=='<REPLACE IT WITH YOUR GITHUB USERNAME>/<REPLACE IT WITH YOUR  GITHUB REPO_NAME>'"
+  --attribute-condition='assertion.repository=="${GITHUB_USER}/${GITHUB_REPOSITORY}"'
 export PROJECT_NUMBER=$(gcloud projects describe $PROJECT_ID --format "value(projectNumber)")
 gcloud iam service-accounts add-iam-policy-binding  github-sa@$PROJECT_ID.iam.gserviceaccount.com  --member "principalSet://iam.googleapis.com/projects/${PROJECT_NUMBER}/locations/global/workloadIdentityPools/github-pool/attribute.workflow/gcp-deploy" --role roles/iam.workloadIdentityUser
 ```
+9)CREATING THE GOOGLE ARTIFACT REGISTRY IN ASIA 
+```bash
+gcloud artifacts repositories create repo-github \
+--repository-format docker \
+--region asia-south2 \
+--labels type=github-images
+ ```
