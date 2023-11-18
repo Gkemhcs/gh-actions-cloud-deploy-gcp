@@ -17,14 +17,26 @@ TOOLS USED:
        AND THEN CREATE  CLOUD-DEPLOY RELEASES TO  INITIATE CONTINOUS DELIVERY
        PROCESS 
 ### STEPS TO DEPLOY THE PROJECT:-
- FIRST ENABLE THE REQUIRED APIS 
+1)FIRST ENABLE THE REQUIRED APIS 
     
  ```bash 
  gcloud  services enable container.googleapis.com compute.googleapis.com \
  clouddeploy.googleapis.com cloudbuild.googleapis.com artifactregistry.googleapis.com 
  ```
- REPLACE THE PROJECT ID BELOW WITH THE ID OF YOUR GOOGLE CLOUD PROJECT
+ 2)REPLACE THE PROJECT ID BELOW WITH THE ID OF YOUR GOOGLE CLOUD PROJECT
  ```bash
  export PROJECT_ID="REPLACE_WITH_YOUR_GOOGLE_CLOUD_PROJECT_ID"
- ```
+```
+3) CREATE GKE CLUSTERS 
+```bash
+gcloud container clusters create cluster-test --zone asia-south2-a \
+--workload-pool $PROJECT_ID.svc.id.goog \
+--num-nodes 1 \
+--machine-type e2-standard-4 
+
+gcloud container clusters create cluster-prod --zone us-central1-a \
+--workload-pool $PROJECT_ID.svc.id.goog \
+--num-nodes 1 \
+--machine-type e2-standard-4 
+```
 
