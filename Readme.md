@@ -20,6 +20,8 @@ TOOLS USED:
 1)FIRST ENABLE THE REQUIRED APIS 
     
  ```bash 
+ echo "ENTER YOUR PROJECT_ID"
+ read PROJECT_ID
  gcloud config set project $PROJECT_ID
  gcloud  services enable container.googleapis.com compute.googleapis.com \
  clouddeploy.googleapis.com cloudbuild.googleapis.com artifactregistry.googleapis.com 
