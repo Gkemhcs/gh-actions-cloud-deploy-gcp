@@ -101,7 +101,7 @@ gcloud iam workload-identity-pools providers create-oidc  github --location glob
 --workload-identity-pool=github-pool --display-name GITHUB_PROVIDER \
  --issuer-uri="https://token.actions.githubusercontent.com"  \
  --attribute-mapping="google.subject=assertion.sub,attribute.workflow=assertion.workflow,attribute.actor=assertion.actor,attribute.repository=assertion.repository" \
-  --attribute-condition="assertion.repository==USER/REPO"
+  --attribute-condition='assertion.repository=="USER/REPO"'
 ```
 
 
