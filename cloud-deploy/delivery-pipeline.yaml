@@ -16,8 +16,8 @@ serialPipeline:
          runtimeConfig:
           kubernetes:
             serviceNetworking:
-              service: "frontend-lb"
-              deployment: "frontend"
+              service: "frontend-lb-prod"
+              deployment: "frontend-prod"
          canaryDeployment:
           percentages: [25,50]
           verify: false
