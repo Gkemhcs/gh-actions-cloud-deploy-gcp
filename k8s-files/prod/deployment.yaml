@@ -1,6 +1,6 @@
 apiVersion: apps/v1
 metadata:
-   name: frontend
+   name: frontend-prod
 kind: Deployment
 spec:
      replicas : 3  # from-param: ${replica_count} 
@@ -27,7 +27,7 @@ spec:
 apiVersion: v1
 kind: Service 
 metadata:
-   name: frontend-lb 
+   name: frontend-lb-prod
 spec:
   selector: 
     app: frontend 
@@ -35,3 +35,4 @@ spec:
   ports:
   - targetPort: 8080
     port: 80
+---

@@ -41,7 +41,7 @@ jobs:
       
       
       - id: create-release
-        uses: 'google-github-actions/create-cloud-deploy-release@v1'
+        uses: 'google-github-actions/create-cloud-deploy-release@latest'
         with:
           name: "release-${{github.sha}}"
           description: 'Add new functionality to demo-app'
