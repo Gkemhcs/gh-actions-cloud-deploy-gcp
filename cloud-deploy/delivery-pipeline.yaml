@@ -8,6 +8,10 @@ serialPipeline:
   - profiles:
     - test 
     targetId: test
+    strategy:
+      standard:
+         verify: true
+    
   - profiles:
     - prod 
     targetId: prod 
@@ -67,7 +71,7 @@ rules:
 - promoteRelease:
     name: promote-to-prod 
     wait: 4m
-    destinationPhase: canary-25
+  
 ---
 apiVersion:   deploy.cloud.google.com/v1
 kind: Automation
@@ -84,4 +88,4 @@ rules:
 - promoteRelease:
     name: advance-canary
     wait: 2m
-    sourcePhases: ["canary-50"]
+    
