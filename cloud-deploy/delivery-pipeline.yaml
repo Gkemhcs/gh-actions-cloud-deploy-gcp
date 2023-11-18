@@ -87,7 +87,8 @@ selector:
 - target:
     id: prod
 rules:
-- promoteRelease:
+- advanceRollout:
     name: advance-canary
     wait: 2m
+    sourcePhases: ["canary-50"]
     
