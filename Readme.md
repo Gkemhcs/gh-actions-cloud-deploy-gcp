@@ -110,11 +110,10 @@ gcloud iam workload-identity-pools providers create-oidc  github --location glob
 export PROJECT_NUMBER=$(gcloud projects describe $PROJECT_ID --format "value(projectNumber)")
 gcloud iam service-accounts add-iam-policy-binding  github-sa@$PROJECT_ID.iam.gserviceaccount.com  --member "principalSet://iam.googleapis.com/projects/${PROJECT_NUMBER}/locations/global/workloadIdentityPools/github-pool/attribute.workflow/gcp-deploy" --role roles/iam.workloadIdentityUser
 ```
-<<<<<<< HEAD
-8)CREATING THE GOOGLE ARTIFACT REGISTRY IN ASIA 
-=======
+
+
 9)CREATING THE GOOGLE ARTIFACT REGISTRY IN ASIA 
->>>>>>> 8251332d1a4c652c43c1e31f2d7f26031588a1a4
+
 ```bash
 gcloud artifacts repositories create repo-github \
 --repository-format docker \
