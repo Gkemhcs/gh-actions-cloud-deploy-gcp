@@ -18,8 +18,7 @@ spec:
             env:
             - name: ENVIRONMENT
               value: testing
-            image:  asia-south2-docker.pkg.dev/cobalt-infinity-405312/repo-github/frontend:v4
-
+            image:  demo-app
             ports:
             - containerPort: 8080
 ---
