@@ -19,7 +19,7 @@ serialPipeline:
               service: "frontend-lb-prod"
               deployment: "frontend-prod"
          canaryDeployment:
-          percentages: [25,50]
+          percentages: [10,25,50]
           verify: false
 ---
 apiVersion: deploy.cloud.google.com/v1
@@ -51,3 +51,37 @@ executionConfigs:
       - RENDER 
       - DEPLOY 
      
+---
+apiVersion:   deploy.cloud.google.com/v1
+kind: Automation
+metadata:
+   name: gh-actions-pipeline/promoter
+   labels:
+      type: promoter 
+description: "automate the promotion from test to prod "
+serviceAccount: deploy-promoter@cobalt-infinity-405312.iam.gserviceaccount.com
+selector:
+- target:
+    id: test
+rules:
+- promoteRelease:
+    name: promote-to-prod 
+    wait: 4m
+    destinationPhase: canary-25
+---
+apiVersion:   deploy.cloud.google.com/v1
+kind: Automation
+metadata:
+   name: gh-actions-pipeline/advancer
+   labels:
+      type: advancer
+description: "automate the advancement of canary rollout "
+serviceAccount: deploy-promoter@cobalt-infinity-405312.iam.gserviceaccount.com
+selector:
+- target:
+    id: prod
+rules:
+- promoteRelease:
+    name: advance-canary
+    wait: 2m
+    sourcePhases: ["canary-50"]
