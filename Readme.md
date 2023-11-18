@@ -90,5 +90,9 @@ gcloud deploy apply --file delivery-pipeline.yaml
 7)CREATING THE WORKLOAD IDENTITY POOL AND ADDING GITHUB PROVIDER TO THE POOL FOR AUTHENTICATING,AUTHORIZING THE GITHUB WORKFLOWS
 ```bash
 gcloud iam workload-identity-pools create github-pool  --location global --display-name  GITHUB-POOL
-gcloud iam workload-identity-pools providers create-oidc  github --location global --workload-identity-pool=github-pool --display-name GITHUB_PROVIDER --issuer-uri="https://token.actions.githubusercontent.com"  --attribute-mapping="google.subject=assertion.sub,attribute.workflow=assertion.workflow,attribute.actor=assertion.actor,attribute.repository=assertion.repository" --attribute-condition="assertion.repository=='Gkemhcs/github'"
+gcloud iam workload-identity-pools providers create-oidc  github --location global\
+--workload-identity-pool=github-pool --display-name GITHUB_PROVIDER \
+ --issuer-uri="https://token.actions.githubusercontent.com"  \
+ --attribute-mapping="google.subject=assertion.sub,attribute.workflow=assertion.workflow,attribute.actor=assertion.actor,attribute.repository=assertion.repository" \
+  --attribute-condition="assertion.repository=='Gkemhcs/github'"
 ```
