@@ -1,0 +1,15 @@
+run-name: gcp-deploy-run
+name: gcp-deploy
+on:
+   push:
+      paths: 
+      - "app/**"
+jobs:
+    deploy_to_gcp:
+      permissions:
+         id-token: write
+         contents: write
+      runs-on: ubuntu-latest
+      steps:
+      - id:  echo 
+        run:  echo "hello world"
