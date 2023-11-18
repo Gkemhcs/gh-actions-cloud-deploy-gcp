@@ -100,7 +100,7 @@ read GITHUB_REPOSITORY
 ```bash
 
 gcloud iam workload-identity-pools create github-pool  --location global --display-name  GITHUB-POOL
-gcloud iam workload-identity-pools providers create-oidc  github --location global\
+gcloud iam workload-identity-pools providers create-oidc  github --location global \
 --workload-identity-pool=github-pool --display-name GITHUB_PROVIDER \
  --issuer-uri="https://token.actions.githubusercontent.com"  \
  --attribute-mapping="google.subject=assertion.sub,attribute.workflow=assertion.workflow,attribute.actor=assertion.actor,attribute.repository=assertion.repository" \
