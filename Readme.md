@@ -48,9 +48,7 @@ gcloud iam service-accounts create deploy-promoter
 ```
 5)BINDING THE IAM POLICIES TO THE SERVICE ACCOUNTS
 ```bash
-gcloud projects add-iam-policy-binding $PROJECT_ID \
---member "serviceAccount:github-sa@${PROJECT_ID}.iam.gserviceaccount.com" \
---role roles/iam.workloadIdentityUser
+
 gcloud projects add-iam-policy-binding $PROJECT_ID \
 --member "serviceAccount:github-sa@${PROJECT_ID}.iam.gserviceaccount.com" \
 --role roles/clouddeploy.releaser
@@ -94,5 +92,7 @@ gcloud iam workload-identity-pools providers create-oidc  github --location glob
 --workload-identity-pool=github-pool --display-name GITHUB_PROVIDER \
  --issuer-uri="https://token.actions.githubusercontent.com"  \
  --attribute-mapping="google.subject=assertion.sub,attribute.workflow=assertion.workflow,attribute.actor=assertion.actor,attribute.repository=assertion.repository" \
-  --attribute-condition="assertion.repository=='Gkemhcs/github'"
+  --attribute-condition="assertion.repository=='<REPLACE IT WITH YOUR GITHUB USERNAME>/<REPLACE IT WITH YOUR  GITHUB REPO_NAME>'"
+export PROJECT_NUMBER=$(gcloud projects describe $PROJECT_ID --format "value(projectNumber)")
+gcloud iam service-accounts add-iam-policy-binding  github-sa@$PROJECT_ID.iam.gserviceaccount.com  --member "principalSet://iam.googleapis.com/projects/${PROJECT_NUMBER}/locations/global/workloadIdentityPools/github-pool/attribute.workflow/gcp-deploy" --role roles/iam.workloadIdentityUser
 ```
