@@ -15,6 +15,6 @@ spec:
         spec:
           containers:
           - name: cnt-1
-            image:  flask-app:v4
+            image:  flask-app:9ecbc60846a1d925bb55e9f8a5dec0e7994fd9b7
             ports:
             - containerPort: 8080
