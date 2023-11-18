@@ -35,13 +35,17 @@ jobs:
       - name: Build and Push Container
         run: |-
           cd app 
-          ls 
+          
           docker build -t "${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REGISTRY_NAME }}/frontend:${{ github.sha }}"  ./
           docker push "${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REGISTRY_NAME }}/frontend:${{ github.sha }}"
       
       - name:  apply image tag to deployment file also to start cd
         run: |
+            pwd
             cd ..
+            pwd
+            ls 
+            ls k8s-files
             sed -i "s/flask-app.*$/flask-app:${{github.sha}}/" k8s-files/deployment.yaml
       - name: Commit files
         run: |
