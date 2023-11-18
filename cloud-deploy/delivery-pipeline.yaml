@@ -1,0 +1,53 @@
+apiVersion: deploy.cloud.google.com/v1
+kind: DeliveryPipeline
+metadata:
+  name:  gh-actions-pipeline 
+description: THIS DEMONSTRATES THE CD PIPELINE INTEGRATED WITH GITHUB 
+serialPipeline:
+  stages:
+  - profiles:
+    - test 
+    targetId: test
+  - profiles:
+    - prod 
+    targetId: prod 
+    strategy:
+      canary:
+         runtimeConfig:
+          kubernetes:
+            serviceNetworking:
+              service: "frontend-lb"
+              deployment: "frontend"
+         canaryDeployment:
+          percentages: [25,50]
+          verify: false
+---
+apiVersion: deploy.cloud.google.com/v1
+kind: Target
+metadata:
+  name: test
+description: test GKE cluster
+gke:  
+  cluster:   projects/cobalt-infinity-405312/locations/asia-south2-a/clusters/cluster-test 
+executionConfigs:
+  - defaultPool:
+        serviceAccount:  deploy-runner@cobalt-infinity-405312.iam.gserviceaccount.com
+    usages:
+      - RENDER 
+      - DEPLOY 
+     
+---
+apiVersion: deploy.cloud.google.com/v1
+kind: Target
+metadata:
+  name: prod
+description: prod GKE cluster
+gke:  
+  cluster:   projects/cobalt-infinity-405312/locations/us-central1-a/clusters/cluster-prod
+executionConfigs:
+  - defaultPool:
+        serviceAccount:  deploy-runner@cobalt-infinity-405312.iam.gserviceaccount.com
+    usages:
+      - RENDER 
+      - DEPLOY 
+     

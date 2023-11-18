@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+metadata:
+   name: frontend
+kind: Deployment
+spec:
+     replicas : 3  # from-param: ${replica_count} 
+     selector:
+        matchLabels:
+          
+          app: frontend 
+     template:
+        metadata:
+          labels:
+             app: frontend
+        spec:
+          containers:
+
+          - name: cnt-1
+            env:
+            - name: ENVIRONMENT
+              value: production
+            image:  asia-south2-docker.pkg.dev/cobalt-infinity-405312/repo-github/frontend:v4
+
+            ports:
+            - containerPort: 8080
+---
+apiVersion: v1
+kind: Service 
+metadata:
+   name: frontend-lb 
+spec:
+  selector: 
+    app: frontend 
+  type: LoadBalancer
+  ports:
+  - targetPort: 8080
+    port: 80

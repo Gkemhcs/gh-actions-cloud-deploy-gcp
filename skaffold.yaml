@@ -1,0 +1,16 @@
+apiVersion: skaffold/v4beta1
+kind: Config
+profiles:
+- name: test 
+  deploy:
+      kubectl: {}
+  manifests:
+   rawYaml:
+   - "k8s-files/test/*"
+- name: prod 
+  deploy:
+    kubectl: {}
+  manifests:
+    rawYaml:
+    - "k8s-files/prod/*"
+
