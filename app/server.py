@@ -6,6 +6,6 @@ def home():
        return render_template("home.html",title="GITHUB-ACTIONS TO CLOUD-DEPLOY DEMO ",content="THIS PROJECTS SHOWS THE INTERGRATION OF GITHUB ACTIONS WITH CLOUD DEPLOY FOR CI/CD  ") 
 @app.route("/health")
 def health_check():
-        return "healthy"
+        return " i am healthy"
 if(__name__=="__main__"):
      app.run(port=8080,host="0.0.0.0")
