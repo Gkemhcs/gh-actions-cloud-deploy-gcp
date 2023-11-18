@@ -93,6 +93,7 @@ gcloud deploy apply --file delivery-pipeline.yaml \
 ```
 7)CREATING THE WORKLOAD IDENTITY POOL AND ADDING GITHUB PROVIDER TO THE POOL FOR AUTHENTICATING,AUTHORIZING THE GITHUB WORKFLOWS
 8)REPLACE THE USER WITH YOUR GITHUB USERNAME AND REPO WITH NAME OF GITHUB REPOSITORY
+
 ```bash
 
 gcloud iam workload-identity-pools create github-pool  --location global --display-name  GITHUB-POOL
@@ -102,6 +103,8 @@ gcloud iam workload-identity-pools providers create-oidc  github --location glob
  --attribute-mapping="google.subject=assertion.sub,attribute.workflow=assertion.workflow,attribute.actor=assertion.actor,attribute.repository=assertion.repository" \
   --attribute-condition="assertion.repository==USER/REPO"
 ```
+
+
 ```bash
 
 export PROJECT_NUMBER=$(gcloud projects describe $PROJECT_ID --format "value(projectNumber)")
