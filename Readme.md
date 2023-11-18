@@ -71,5 +71,12 @@ gcloud projects add-iam-policy-binding $PROJECT_ID \
 gcloud projects add-iam-policy-binding $PROJECT_ID \
 --member "serviceAccount:deploy-promoter@${PROJECT_ID}.iam.gserviceaccount.com" \
 --role roles/clouddeploy.developer
+gcloud iam service-accounts add-iam-policy-binding deploy-runner@$PROJECT_ID.iam.gserviceaccount.com \
+--member "serviceAccount:deploy-promoter@${PROJECT_ID}.iam.gserviceaccount.com" \
+--role roles/iam.serviceAccountUser
+gcloud iam service-accounts add-iam-policy-binding deploy-runner@$PROJECT_ID.iam.gserviceaccount.com \
+--member "serviceAccount:github-sa@${PROJECT_ID}.iam.gserviceaccount.com" \
+--role roles/iam.serviceAccountUser
+
 ```
  
