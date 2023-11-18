@@ -27,7 +27,7 @@ TOOLS USED:
  ```bash
  export PROJECT_ID="REPLACE_WITH_YOUR_GOOGLE_CLOUD_PROJECT_ID"
 ```
-3) CREATE GKE CLUSTERS 
+3)CREATE GKE CLUSTERS 
 ```bash
 gcloud container clusters create cluster-test --zone asia-south2-a \
 --workload-pool $PROJECT_ID.svc.id.goog \
@@ -39,4 +39,9 @@ gcloud container clusters create cluster-prod --zone us-central1-a \
 --num-nodes 1 \
 --machine-type e2-standard-4 
 ```
-
+4)CREATING THE REQUIRED IAM SERVICE-ACCOUNTS 
+```bash
+gcloud iam service-accounts create github-sa
+gcloud iam service-accounts create deploy-runner
+gcloud iam service-accounts create deploy-promoter
+```

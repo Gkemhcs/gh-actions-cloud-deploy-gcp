@@ -32,10 +32,10 @@ metadata:
   name: test
 description: test GKE cluster
 gke:  
-  cluster:   projects/cobalt-infinity-405312/locations/asia-south2-a/clusters/cluster-test 
+  cluster:   projects/PROJECT_ID/locations/asia-south2-a/clusters/cluster-test 
 executionConfigs:
   - defaultPool:
-        serviceAccount:  deploy-runner@cobalt-infinity-405312.iam.gserviceaccount.com
+        serviceAccount:  deploy-runner@PROJECT_ID.iam.gserviceaccount.com
     usages:
       - RENDER 
       - DEPLOY 
@@ -48,10 +48,10 @@ metadata:
   name: prod
 description: prod GKE cluster
 gke:  
-  cluster:   projects/cobalt-infinity-405312/locations/us-central1-a/clusters/cluster-prod
+  cluster:   projects/PROJECT_ID/locations/us-central1-a/clusters/cluster-prod
 executionConfigs:
   - defaultPool:
-        serviceAccount:  deploy-runner@cobalt-infinity-405312.iam.gserviceaccount.com
+        serviceAccount:  deploy-runner@PROJECT_ID.iam.gserviceaccount.com
     usages:
       - RENDER 
       - DEPLOY 
@@ -65,7 +65,7 @@ metadata:
    labels:
       type: promoter 
 description: "automate the promotion from test to prod "
-serviceAccount: deploy-promoter@cobalt-infinity-405312.iam.gserviceaccount.com
+serviceAccount: deploy-promoter@PROJECT_ID.iam.gserviceaccount.com
 selector:
 - target:
     id: test
@@ -82,7 +82,7 @@ metadata:
    labels:
       type: advancer
 description: "automate the advancement of canary rollout "
-serviceAccount: deploy-promoter@cobalt-infinity-405312.iam.gserviceaccount.com
+serviceAccount: deploy-promoter@PROJECT_ID.iam.gserviceaccount.com
 selector:
 - target:
     id: prod
