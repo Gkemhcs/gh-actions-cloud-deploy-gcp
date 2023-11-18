@@ -15,6 +15,6 @@ spec:
         spec:
           containers:
           - name: cnt-1
-            image:  flask-app:v4
+            image:  asia-south2-docker.pkg.dev/cobalt-infinity-405312/repo-github/frontend:v4
             ports:
             - containerPort: 8080

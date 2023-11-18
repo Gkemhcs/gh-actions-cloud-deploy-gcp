@@ -1,5 +1,5 @@
 run-name: gcp-deploy-run
-name: gcp-deploy
+name: gcp-deplo
 on:
    push:
       paths: 
