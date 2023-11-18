@@ -7,7 +7,7 @@ on:
 env:
   PROJECT_ID: "cobalt-infinity-405312"
   GAR_LOCATION: "asia-south2"
-  REGISTRY_NAME: "github-repo"
+  REGISTRY_NAME: "repo-github"
 jobs:
     deploy_to_gcp:
       permissions:
@@ -16,7 +16,7 @@ jobs:
       runs-on: ubuntu-latest
       steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout
       - name: Google Auth
         id: auth
         uses: 'google-github-actions/auth@v0'
@@ -26,7 +26,7 @@ jobs:
           service_account: '${{ secrets.WIF_SERVICE_ACCOUNT }}'
       - name: Docker Auth
         id: docker-auth
-        uses: 'docker/login-action@v1'
+        uses: 'docker/login-action'
         with:
           username: 'oauth2accesstoken'
           password: '${{ steps.auth.outputs.access_token }}'
