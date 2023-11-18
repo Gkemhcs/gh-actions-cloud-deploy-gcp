@@ -45,3 +45,31 @@ gcloud iam service-accounts create github-sa
 gcloud iam service-accounts create deploy-runner
 gcloud iam service-accounts create deploy-promoter
 ```
+5)BINDING THE IAM POLICIES TO THE SERVICE ACCOUNTS
+```bash
+gcloud projects add-iam-policy-binding $PROJECT_ID \
+--member "serviceAccount:github-sa@${PROJECT_ID}.iam.gserviceaccount.com" \
+--role roles/iam.workloadIdentityUser
+gcloud projects add-iam-policy-binding $PROJECT_ID \
+--member "serviceAccount:github-sa@${PROJECT_ID}.iam.gserviceaccount.com" \
+--role roles/clouddeploy.releaser
+gcloud projects add-iam-policy-binding $PROJECT_ID \
+--member "serviceAccount:github-sa@${PROJECT_ID}.iam.gserviceaccount.com" \
+--role roles/artifactregistry.createOnPushWriter
+gcloud projects add-iam-policy-binding $PROJECT_ID \
+--member "serviceAccount:github-sa@${PROJECT_ID}.iam.gserviceaccount.com" \
+--role roles/storage.admin
+gcloud projects add-iam-policy-binding $PROJECT_ID \
+--member "serviceAccount:deploy-runner@${PROJECT_ID}.iam.gserviceaccount.com" \
+--role roles/clouddeploy.jobRunner
+gcloud projects add-iam-policy-binding $PROJECT_ID \
+--member "serviceAccount:deploy-runner@${PROJECT_ID}.iam.gserviceaccount.com" \
+--role roles/container.developer
+gcloud projects add-iam-policy-binding $PROJECT_ID \
+--member "serviceAccount:deploy-promoter@${PROJECT_ID}.iam.gserviceaccount.com" \
+--role roles/clouddeploy.operator
+gcloud projects add-iam-policy-binding $PROJECT_ID \
+--member "serviceAccount:deploy-promoter@${PROJECT_ID}.iam.gserviceaccount.com" \
+--role roles/clouddeploy.developer
+```
+ 
