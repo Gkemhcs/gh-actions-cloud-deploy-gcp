@@ -39,6 +39,7 @@ executionConfigs:
     usages:
       - RENDER 
       - DEPLOY 
+      - VERIFY
      
 ---
 apiVersion: deploy.cloud.google.com/v1
@@ -54,6 +55,7 @@ executionConfigs:
     usages:
       - RENDER 
       - DEPLOY 
+
      
 ---
 apiVersion:   deploy.cloud.google.com/v1
